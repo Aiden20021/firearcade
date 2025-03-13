@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Beheer - FireArcade</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form action="logout.php" method="post" class="logout-form">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+        <h1>Account Beheer</h1>
+        
+        <div class="form-container">
+            <form action="register_account.php" method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-input" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" class="form-input" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Naam</label>
+                    <input type="text" class="form-input" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Rol</label>
+                    <select class="form-input" id="role" name="role" required>
+                        <option value="">Selecteer een rol</option>
+                        <option value="verkoper">Verkoper</option>
+                        <option value="monteur">Monteur</option>
+                        <option value="klant">Klant</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Account Aanmaken</button>
+                </div>
+            </form>
+        </div>
+
+        <h2>Geregistreerde Accounts</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- PHP zal hier de accounts injecteren -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

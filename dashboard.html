@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Klantportaal - FireArcade</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="logout.php" method="post" class="logout-form">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+        <h1>Mijn Tickets (klant dashboard)</h1>
+        <div class="dashboard-actions">
+            <button onclick="location.href='ticket-aanmaken.html'" class="submit-button">Nieuw ticket aanmaken</button>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ticketnummer</th>
+                        <th>Spelkast</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1234</td>
+                        <td>Pac-Man</td>
+                        <td>Open</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

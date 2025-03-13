@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticketdetails - Monteurportaal FireArcade</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container">
+        <h1 id="ticketNummer">Ticket #</h1>
+        <div class="form-container">
+            <div class="info-group">
+                <label>Klantnaam:</label>
+                <span id="klantnaam"></span>
+            </div>
+            <div class="info-group">
+                <label>Adres:</label>
+                <span id="adres"></span>
+            </div>
+            <div class="info-group">
+                <label>Spelkast:</label>
+                <span id="spelkast"></span>
+            </div>
+            <div class="info-group">
+                <label>Probleemomschrijving:</label>
+                <span id="omschrijving"></span>
+            </div>
+            <div class="info-group">
+                <label>Onderhoudscontract:</label>
+                <span id="contract"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="werkzaamheden">Werkzaamheden:</label>
+                <textarea id="werkzaamheden" class="form-input textarea" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="foto-upload">Upload foto's:</label>
+                <input type="file" id="foto-upload" class="form-input" multiple>
+            </div>
+            
+            
+            <div class="form-group">
+                <label>Klantondertekening:</label>
+                <canvas id="klant-handtekening" class="handtekening-canvas"></canvas>
+                <button onclick="resetHandtekening()">Reset</button>
+            </div>
+            
+            <div class="form-actions">
+                <button onclick="ticketVoltooien()" class="submit-button">Ticket voltooien</button>
+                <button onclick="location.href='monteur-dashboard.html'" class="nav-button">Terug naar overzicht</button>
+            </div>
+        </div>
+    </div>
+    <script src="monteur-script.js"></script>
+</body>
+</html>

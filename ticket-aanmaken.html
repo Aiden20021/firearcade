@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket aanmaken - FireArcade</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ticket aanmaken</h1>
+        <form id="ticketForm" class="form-container">
+            <div class="form-group">
+                <label for="spelkast">Selecteer spelkast</label>
+                <select id="spelkast" name="spelkast" class="form-input" required>
+                    <option value="">-- Maak een keuze --</option>
+                    <option value="pacman">Pac-Man</option>
+                    <option value="spaceinvaders">Space Invaders</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="soort">Soort</label>
+                <select id="soort" name="soort" class="form-input" required>
+                    <option value="">-- Maak een keuze --</option>
+                    <option value="installatie">Installatie</option>
+                    <option value="reparatie">Reparatie</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label for="omschrijving">Probleemomschrijving</label>
+                <textarea id="omschrijving" name="omschrijving" 
+                    class="form-input textarea"
+                    required
+                    minlength="10"
+                    rows="4"
+                    title="Beschrijf het probleem in detail (minimaal 10 karakters)"
+                    placeholder="Beschrijf hier wat er precies mis is met de spelkast..."></textarea>
+            </div>
+            <button type="submit" class="submit-button">Ticket aanmaken</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
