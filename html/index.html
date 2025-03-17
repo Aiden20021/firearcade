@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FireArcade - Portalen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 15s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 1.2s ease-out;
+        }
+        
+        header p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
+        }
+        
+        .portal-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            height: 100%;
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .portal-card:nth-child(1) { animation-delay: 0.2s; }
+        .portal-card:nth-child(2) { animation-delay: 0.4s; }
+        .portal-card:nth-child(3) { animation-delay: 0.6s; }
+        .portal-card:nth-child(4) { animation-delay: 0.8s; }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .portal-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .portal-icon {
+            color: white;
+            padding: 40px 0;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portal-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .portal-card:hover .portal-icon::after {
+            transform: translateX(0);
+        }
+        
+        .admin-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .klant-icon {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        .verkoop-icon {
+            background: linear-gradient(135deg, #f39c12, #d35400);
+        }
+        
+        .monteur-icon {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+        
+        .portal-content {
+            padding: 25px;
+        }
+        
+        .portal-content h2 {
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            color: #2c3e50;
+        }
+        
+        .portal-content p {
+            margin-bottom: 25px;
+            color: #7f8c8d;
+        }
+        
+        .portal-btn {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .portal-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        
+        .portal-btn:hover::before {
+            width: 100%;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .klant-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .verkoop-btn {
+            background: linear-gradient(135deg, #f39c12, #d35400);
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+        }
+        
+        .monteur-btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>FireArcade Portalen</h1>
+            <p>Selecteer het portaal dat u wilt bezoeken</p>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="portal-grid">
+            <div class="portal-card">
+                <div class="portal-icon admin-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="portal-content">
+                    <h2>Adminportaal</h2>
+                    <p>Beheer accounts en systeeminstellingen</p>
+                    <a href="@account-beheer.html" class="portal-btn admin-btn">Inloggen</a>
+                </div>
+            </div>
+            
+            <div class="portal-card">
+                <div class="portal-icon klant-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="portal-content">
+                    <h2>Klantportaal</h2>
+                    <p>Bekijk uw bestellingen en accountgegevens</p>
+                    <a href="@klant-dashboard.php" class="portal-btn klant-btn">Inloggen</a>
+                </div>
+            </div>
+            
+            <div class="portal-card">
+                <div class="portal-icon verkoop-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="portal-content">
+                    <h2>Verkoopportaal</h2>
+                    <p>Beheer bestellingen en verkoopadministratie</p>
+                    <a href="@verkoop-dashboard.php" class="portal-btn verkoop-btn">Inloggen</a>
+                </div>
+            </div>
+            
+            <div class="portal-card">
+                <div class="portal-icon monteur-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="portal-content">
+                    <h2>Monteurportaal</h2>
+                    <p>Bekijk en beheer reparatieopdrachten</p>
+                    <a href="@monteur-dashboard.html" class="portal-btn monteur-btn">Inloggen</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
