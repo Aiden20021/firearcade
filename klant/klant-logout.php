@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-header("Location: klant-login.php");
+header("Location: ../index.html");
 exit();

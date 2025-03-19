@@ -22,22 +22,28 @@ $spelkasten_query = "SELECT spelkast_id, naam, prijs FROM spelkasten ORDER BY na
 $spelkasten_result = $conn->query($spelkasten_query);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $klant_id = $conn->real_escape_string($_POST['klant']);
-    $spelkast_id = $conn->real_escape_string($_POST['spelkast']);
-    $datum = $conn->real_escape_string($_POST['datum']);
+    // Haal de ingevoerde waarden 
+    $klant_id = $_POST['klant'];
+    $spelkast_id = $_POST['spelkast'];
+    $datum = $_POST['datum'];
+    // Zet de waarde van verlengde garantie op 1 als het checkboxje is aangevinkt, anders 0
     $garantie = isset($_POST['garantie']) ? 1 : 0;
 
+    // Maak de SQL-query voor het invoegen van de nieuwe bestelling
     $sql = "INSERT INTO bestellingen (klant_id, spelkast_id, besteldatum, verlengde_garantie) 
             VALUES ('$klant_id', '$spelkast_id', '$datum', '$garantie')";
 
+    // Voer de query uit en controleer of het succesvol is
     if ($conn->query($sql) === TRUE) {
         header("Location: verkoop-dashboard.php");
         exit();
     } else {
+        // Toon een foutmelding als de query niet succesvol is
         $message = "Error: " . $sql . "<br>" . $conn->error;
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>

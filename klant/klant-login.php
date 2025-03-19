@@ -15,26 +15,33 @@ if ($conn->connect_error) {
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $conn->real_escape_string($_POST['email']);
+    // Haal de invoer van de gebruiker op
+    $email = $_POST['email'];
     $wachtwoord = $_POST['wachtwoord'];
 
+    // Zoek de klant op basis van het ingevoerde e-mailadres
     $sql = "SELECT klant_id, naam, wachtwoord FROM klanten WHERE email = '$email'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+        // Als klant wordt gevonden, verifieer het wachtwoord
         $klant = $result->fetch_assoc();
         if (password_verify($wachtwoord, $klant['wachtwoord'])) {
+            // Start de sessie en sla klantgegevens op
             $_SESSION['klant_id'] = $klant['klant_id'];
             $_SESSION['klant_naam'] = $klant['naam'];
             header("Location: klant-dashboard.php");
             exit();
         } else {
+            // Foutmelding als het wachtwoord onjuist is
             $message = "Onjuist wachtwoord";
         }
     } else {
+        // Foutmelding als het e-mailadres niet bestaat
         $message = "E-mailadres niet gevonden";
     }
 }
+
 ?>
 
 <!DOCTYPE html>

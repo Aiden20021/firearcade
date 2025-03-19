@@ -16,16 +16,19 @@ $edit_klant = null;
 
 // Verwerk het bijwerken van een klant
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_klant'])) {
-    $klant_id = $conn->real_escape_string($_POST['klant_id']);
-    $naam = $conn->real_escape_string($_POST['naam']);
-    $adres = $conn->real_escape_string($_POST['adres']);
-    $postcode = $conn->real_escape_string($_POST['postcode']);
-    $woonplaats = $conn->real_escape_string($_POST['woonplaats']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $telefoon = $conn->real_escape_string($_POST['telefoon']);
-    $bankrekening = $conn->real_escape_string($_POST['bankrekening']);
-    $klantType = $conn->real_escape_string($_POST['klantType']);
 
+    // Haal de gegevens op uit het formulier
+    $klant_id = $_POST['klant_id'];
+    $naam = $_POST['naam'];
+    $adres = $_POST['adres'];
+    $postcode = $_POST['postcode'];
+    $woonplaats = $_POST['woonplaats'];
+    $email = $_POST['email'];
+    $telefoon = $_POST['telefoon'];
+    $bankrekening = $_POST['bankrekening'];
+    $klantType = $_POST['klantType'];
+
+    // SQL om de klant bij te werken
     $sql = "UPDATE klanten SET 
             naam = '$naam',
             adres = '$adres',
@@ -37,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_klant'])) {
             klant_type = '$klantType'
             WHERE klant_id = '$klant_id'";
 
+    // Voer de query uit
     if ($conn->query($sql) === TRUE) {
         header("Location: klanten-beheer.php");
         exit();
@@ -47,7 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_klant'])) {
 
 // Verwerk het verwijderen van een klant
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_klant'])) {
-    $klant_id = $conn->real_escape_string($_POST['klant_id']);
+    // Haal het klant_id op uit het formulier
+    $klant_id = $_POST['klant_id'];
     
     // Controleer eerst of er bestellingen zijn
     $check_sql = "SELECT COUNT(*) as count FROM bestellingen WHERE klant_id = '$klant_id'";
@@ -57,9 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_klant'])) {
     if ($row['count'] > 0) {
         $message = "Kan klant niet verwijderen: er zijn nog bestellingen gekoppeld aan deze klant.";
     } else {
+        // SQL om de klant te verwijderen
         $sql = "DELETE FROM klanten WHERE klant_id = '$klant_id'";
         if ($conn->query($sql) === TRUE) {
-            header("Location: verkoop-dashboard.php");
+            header("Location: klanten-beheer.php");
             exit();
         } else {
             $message = "Error: " . $conn->error;
@@ -67,24 +73,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_klant'])) {
     }
 }
 
+
 // Laad klantgegevens voor bewerken
 if (isset($_GET['edit'])) {
-    $klant_id = $conn->real_escape_string($_GET['edit']);
+    // Haal het klant_id op uit de URL parameter
+    $klant_id = $_GET['edit'];
+    
+    // SQL om de klantgegevens op te halen
     $sql = "SELECT * FROM klanten WHERE klant_id = '$klant_id'";
     $result = $conn->query($sql);
+    
     if ($result->num_rows > 0) {
         $edit_klant = $result->fetch_assoc();
     }
 }
 
+
 // Haal alle klanten op
-$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$search = $_GET['search'] ?? '';  
 $sql = "SELECT klant_id, naam, email, woonplaats, klant_type FROM klanten";
 if ($search) {
     $sql .= " WHERE naam LIKE '%$search%'";
 }
-$sql .= " ORDER BY naam";
+
 $result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -183,7 +196,8 @@ $result = $conn->query($sql);
             </form>
         </div>
         <?php endif; ?>
-
+        
+        <h2>Klanten</h2>
         <div class="table-container">
             <table id="klanten">
                 <thead>

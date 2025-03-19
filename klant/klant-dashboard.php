@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Check if user is logged in
+// Check of de gebruiker is ingelogd
 if (!isset($_SESSION['klant_id'])) {
     header("Location: klant-login.php");
     exit();
@@ -23,9 +23,10 @@ $message = '';
 
 // Verwerk nieuwe ticket
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_ticket'])) {
-    $bestelling_id = $conn->real_escape_string($_POST['bestelling_id']);
-    $type = $conn->real_escape_string($_POST['type']);
-    $beschrijving = $conn->real_escape_string($_POST['beschrijving']);
+
+    $bestelling_id = $_POST['bestelling_id'];
+    $type = $_POST['type'];
+    $beschrijving = $_POST['beschrijving'];
     $klant_id = $_SESSION['klant_id'];
 
     $sql = "INSERT INTO tickets (bestelling_id, klant_id, type, beschrijving) 
@@ -40,13 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_ticket'])) {
 
 // Haal bestellingen op van de klant
 $klant_id = $_SESSION['klant_id'];
-$sql = "SELECT b.bestelling_id, s.naam as spelkast_naam, b.besteldatum, b.verlengde_garantie,
-               t.ticket_id, t.type as ticket_type, t.status as ticket_status
-        FROM bestellingen b
-        JOIN spelkasten s ON b.spelkast_id = s.spelkast_id
-        LEFT JOIN tickets t ON b.bestelling_id = t.bestelling_id
-        WHERE b.klant_id = $klant_id
-        ORDER BY b.besteldatum DESC";
+$sql = "SELECT bestellingen.bestelling_id, spelkasten.naam as spelkast_naam, bestellingen.besteldatum, bestellingen.verlengde_garantie,
+               tickets.ticket_id, tickets.type as ticket_type, tickets.status as ticket_status
+        FROM bestellingen
+        JOIN spelkasten ON bestellingen.spelkast_id = spelkasten.spelkast_id
+        LEFT JOIN tickets ON bestellingen.bestelling_id = tickets.bestelling_id
+        WHERE bestellingen.klant_id = $klant_id
+        ORDER BY bestellingen.besteldatum DESC";
+
 
 $result = $conn->query($sql);
 ?>

@@ -14,15 +14,19 @@ if ($conn->connect_error) {
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $naam = $conn->real_escape_string($_POST['naam']);
-    $adres = $conn->real_escape_string($_POST['adres']);
-    $postcode = $conn->real_escape_string($_POST['postcode']);
-    $woonplaats = $conn->real_escape_string($_POST['woonplaats']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $wachtwoord = password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT); // Veilig wachtwoord hashen
-    $telefoon = $conn->real_escape_string($_POST['telefoon']);
-    $bankrekening = $conn->real_escape_string($_POST['bankrekening']);
-    $klantType = $conn->real_escape_string($_POST['klantType']);
+
+    $naam = $_POST['naam'];
+    $adres = $_POST['adres'];
+    $postcode = $_POST['postcode'];
+    $woonplaats = $_POST['woonplaats'];
+    $email = $_POST['email'];
+    
+    // Het wachtwoord veilig hashen
+    $wachtwoord = password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT);
+    
+    $telefoon = $_POST['telefoon'];
+    $bankrekening = $_POST['bankrekening'];
+    $klantType = $_POST['klantType'];
 
     $sql = "INSERT INTO klanten (naam, adres, postcode, woonplaats, email, wachtwoord, telefoon, bankrekening, klant_type) 
             VALUES ('$naam', '$adres', '$postcode', '$woonplaats', '$email', '$wachtwoord', '$telefoon', '$bankrekening', '$klantType')";
