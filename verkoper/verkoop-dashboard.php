@@ -14,21 +14,8 @@ if ($conn->connect_error) {
 // Variabele voor foutmeldingen of bevestigingen
 $message = '';
 
-// Verwerk het verwijderen van een bestelling
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_bestelling'])) {
-    // Haal het bestelling_id op
-    $bestelling_id = $_POST['bestelling_id'];
-    
-    // SQL om de bestelling te verwijderen
-    $sql = "DELETE FROM bestellingen WHERE bestelling_id = '$bestelling_id'";
-
-    // Voer de query uit
-    if ($conn->query($sql) === TRUE) {
-        $message = "Bestelling is succesvol verwijderd.";
-    } else {
-        $message = "Fout bij het verwijderen van de bestelling: " . $conn->error;
-    }
-}
+// Verwijder het verwerken van het verwijderen van bestellingen
+// De code hiervoor is verwijderd
 
 
 // Haal bestellingen op
@@ -86,7 +73,6 @@ $result = $conn->query($sql);
                         <th>Spelkast</th>
                         <th>Datum</th>
                         <th>Garantie</th>
-                        <th>Acties</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,17 +85,10 @@ $result = $conn->query($sql);
                             echo "<td>" . htmlspecialchars($row["spelkast_naam"]) . "</td>";
                             echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($row["besteldatum"]))) . "</td>";
                             echo "<td>" . ($row["verlengde_garantie"] ? "Ja" : "Nee") . "</td>";
-                            echo "<td>";
-                            echo "<form style='display: inline;' method='POST' onsubmit='return confirm(\"Weet u zeker dat u deze bestelling wilt verwijderen?\");'>";
-                            echo "<input type='hidden' name='bestelling_id' value='" . $row["bestelling_id"] . "'>";
-                            echo "<input type='hidden' name='delete_bestelling' value='1'>";
-                            echo "<button type='submit' class='action-button delete'>Verwijderen</button>";
-                            echo "</form>";
-                            echo "</td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='6'>Geen recente bestellingen gevonden</td></tr>";
+                        echo "<tr><td colspan='5'>Geen recente bestellingen gevonden</td></tr>";
                     }
                     ?>
                 </tbody>

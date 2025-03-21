@@ -20,6 +20,7 @@ if ($conn->connect_error) {
 }
 
 $message = '';
+$ticket_aangemaakt = false;
 
 // Verwerk nieuwe ticket
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_ticket'])) {
@@ -34,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_ticket'])) {
 
     if ($conn->query($sql) === TRUE) {
         $message = "Ticket succesvol aangemaakt!";
+        $ticket_aangemaakt = true;
     } else {
         $message = "Error: " . $conn->error;
     }
@@ -58,6 +60,14 @@ $result = $conn->query($sql);
 <head>
     <title>Klant Dashboard - FireArcade</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <?php if ($ticket_aangemaakt): ?>
+    <script>
+        // Voorkom dubbele form submission bij vernieuwen pagina
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+    <?php endif; ?>
 </head>
 <body>
     <div class="container">
