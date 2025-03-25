@@ -88,44 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/login.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body.login-page {
-            background: linear-gradient(135deg, #1a237e, #673ab7, #9c27b0);
-        }
-        
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-        }
-        
-        .login-header h1 {
-            color: #1a237e;
-        }
-        
-        .form-input:focus {
-            border-color: #673ab7;
-            box-shadow: 0 0 0 3px rgba(103, 58, 183, 0.1);
-        }
-        
-        .form-input:focus + label {
-            color: #673ab7;
-        }
-        
-        .toggle-password:hover {
-            color: #673ab7;
-            background-color: rgba(103, 58, 183, 0.05);
-        }
-        
-        .submit-button {
-            background: linear-gradient(135deg, #1a237e, #673ab7);
-        }
-        
-        .submit-button:hover {
-            box-shadow: 0 8px 20px rgba(103, 58, 183, 0.4);
-        }
-    </style>
 </head>
 <body class="login-page">
-    <a href="../index.html" class="back-to-home" style="color: white;">
+    <a href="../index.html" class="back-to-home">
         <i class="fas fa-arrow-left"></i>
         Terug naar home
     </a>
@@ -133,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="login-container">
         <div class="login-header">
             <h1>Inloggen</h1>
-            <p>Welkom terug bij FireArcade</p>
+            <p>Welkom terug bij FireArcade</p> 
         </div>
         
         <?php if ($message): ?>
