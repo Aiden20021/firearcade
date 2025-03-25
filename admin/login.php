@@ -86,13 +86,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Inloggen - FireArcade</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body.login-page {
+            background: linear-gradient(135deg, #1a237e, #673ab7, #9c27b0);
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .login-header h1 {
+            color: #1a237e;
+        }
+        
+        .form-input:focus {
+            border-color: #673ab7;
+            box-shadow: 0 0 0 3px rgba(103, 58, 183, 0.1);
+        }
+        
+        .form-input:focus + label {
+            color: #673ab7;
+        }
+        
+        .toggle-password:hover {
+            color: #673ab7;
+            background-color: rgba(103, 58, 183, 0.05);
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #1a237e, #673ab7);
+        }
+        
+        .submit-button:hover {
+            box-shadow: 0 8px 20px rgba(103, 58, 183, 0.4);
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Inloggen</h1>
+<body class="login-page">
+    <a href="../index.html" class="back-to-home" style="color: white;">
+        <i class="fas fa-arrow-left"></i>
+        Terug naar home
+    </a>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Inloggen</h1>
+            <p>Welkom terug bij FireArcade</p>
+        </div>
         
         <?php if ($message): ?>
-        <div class="message error"><?php echo $message; ?></div>
+        <div class="message error">
+            <i class="fas fa-exclamation-circle"></i>
+            <?php echo $message; ?>
+        </div>
         <?php endif; ?>
 
         <form method="POST" class="form-container">
@@ -106,26 +154,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="password-container">
                     <input type="password" id="password" name="password" class="form-input" required>
                     <button type="button" id="togglePassword" class="toggle-password">
-                        👁️
+                        <i class="fas fa-eye"></i>
                     </button>
                 </div>
             </div>
             
             <div class="form-actions">
-                <button type="submit" class="submit-button">Inloggen</button>
+                <button type="submit" class="submit-button">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Inloggen
+                </button>
             </div>
         </form>
     </div>
 
     <script>
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+        
+        // Initially hide the toggle button
+        toggleButton.classList.remove('visible');
+        
+        // Check if password field has content on input
+        passwordInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                toggleButton.classList.add('visible');
+            } else {
+                toggleButton.classList.remove('visible');
+            }
+        });
+        
+        // Toggle password visibility when eye icon is clicked
+        toggleButton.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             } else {
                 passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         });
     </script>
 </body>
-</html> 
+</html>
