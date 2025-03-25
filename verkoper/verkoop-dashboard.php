@@ -14,10 +14,6 @@ if ($conn->connect_error) {
 // Variabele voor foutmeldingen of bevestigingen
 $message = '';
 
-// Verwijder het verwerken van het verwijderen van bestellingen
-// De code hiervoor is verwijderd
-
-
 // Haal bestellingen op
 $search = $_GET['search'] ?? '';
 $sql = "SELECT bestellingen.bestelling_id, klanten.naam klantnaam, spelkasten.naam spelkast_naam, 
