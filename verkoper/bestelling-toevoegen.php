@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 
 $message = '';
 
+
 // Haal alle klanten op voor de dropdown
 $klanten_query = "SELECT klant_id, naam, email FROM klanten ORDER BY naam";
 $klanten_result = $conn->query($klanten_query);

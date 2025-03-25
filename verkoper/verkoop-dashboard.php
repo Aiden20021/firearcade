@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// Controleer of de gebruiker is ingelogd als verkoper
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'verkoper') {
+    header("Location: ../admin/login.php");
+    exit();
+}
+
 // Database connectie
 $servername = "localhost";
 $username = "root";
@@ -13,6 +21,9 @@ if ($conn->connect_error) {
 
 // Variabele voor foutmeldingen of bevestigingen
 $message = '';
+
+
+
 
 // Haal bestellingen op
 $search = $_GET['search'] ?? '';
@@ -39,7 +50,10 @@ $result = $conn->query($sql);
 </head>
 <body>
     <div class="container">
-        <h1>Verkoop Dashboard</h1>
+        <div class="dashboard-header">
+            <h1>Verkoop Dashboard</h1>
+            <a href="../logout.php" class="nav-button">Uitloggen</a>
+        </div>
         
         <?php if ($message): ?>
         <div class="message"><?php echo $message; ?></div>

@@ -17,7 +17,7 @@ $edit_klant = null;
 // Verwerk het bijwerken van een klant
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_klant'])) {
 
-    // Haal de gegevens op uit het formulier
+    // Haal klantgegevns op
     $klant_id = $_POST['klant_id'];
     $naam = $_POST['naam'];
     $adres = $_POST['adres'];
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_klant'])) {
     $bankrekening = $_POST['bankrekening'];
     $klantType = $_POST['klantType'];
 
-    // SQL om de klant bij te werken
+    // klant bijwerken
     $sql = "UPDATE klanten SET 
             naam = '$naam',
             adres = '$adres',
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_klant'])) {
     if ($row['count'] > 0) {
         $message = "Kan klant niet verwijderen: er zijn nog bestellingen gekoppeld aan deze klant.";
     } else {
-        // SQL om de klant te verwijderen
+        //  klant verwijderen
         $sql = "DELETE FROM klanten WHERE klant_id = '$klant_id'";
         if ($conn->query($sql) === TRUE) {
             header("Location: klanten-beheer.php");

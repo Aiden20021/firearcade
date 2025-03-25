@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-// Check of de gebruiker is ingelogd
-if (!isset($_SESSION['klant_id'])) {
-    header("Location: klant-login.php");
+// Controleer of de gebruiker is ingelogd als klant
+if (!isset($_SESSION['klant_id']) || $_SESSION['user_role'] !== 'klant') {
+    header("Location: ../admin/login.php");
     exit();
 }
 
@@ -12,7 +12,6 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "firearcade";
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
@@ -24,7 +23,6 @@ $ticket_aangemaakt = false;
 
 // Verwerk nieuwe ticket
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_ticket'])) {
-
     $bestelling_id = $_POST['bestelling_id'];
     $type = $_POST['type'];
     $beschrijving = $_POST['beschrijving'];
@@ -51,7 +49,6 @@ $sql = "SELECT bestellingen.bestelling_id, spelkasten.naam as spelkast_naam, bes
         WHERE bestellingen.klant_id = $klant_id
         ORDER BY bestellingen.besteldatum DESC";
 
-
 $result = $conn->query($sql);
 ?>
 
@@ -73,7 +70,7 @@ $result = $conn->query($sql);
     <div class="container">
         <div class="dashboard-header">
             <h1>Welkom, <?php echo htmlspecialchars($_SESSION['klant_naam']); ?></h1>
-            <a href="klant-logout.php" class="nav-button">Uitloggen</a>
+            <a href="../logout.php" class="nav-button">Uitloggen</a>
         </div>
 
         <?php if ($message): ?>
@@ -85,12 +82,12 @@ $result = $conn->query($sql);
             <table>
                 <thead>
                     <tr>
-                        <th>Bestelling ID</th>
+                        <th>Bestellingsnummer</th>
                         <th>Spelkast</th>
                         <th>Datum</th>
-                        <th>Verlengde Garantie</th>
-                        <th>Ticket Status</th>
-                        <th>Actie</th>
+                        <th>Garantie</th>
+                        <th>Status</th>
+                        <th>Acties</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +114,7 @@ $result = $conn->query($sql);
                                 </td>
                                 <td>
                                     <?php if (!isset($row['ticket_id'])): ?>
-                                    <button onclick="openTicketForm(<?php echo $row['bestelling_id']; ?>)" 
+                                    <button onclick="openTicketModal(<?php echo $row['bestelling_id']; ?>)" 
                                             class="action-button">Ticket aanmaken</button>
                                     <?php endif; ?>
                                 </td>
@@ -134,27 +131,24 @@ $result = $conn->query($sql);
     </div>
 
     <!-- Ticket Modal -->
-    <div id="ticketModal" class="modal" style="display: none;">
+    <div id="ticketModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Ticket Aanmaken</h2>
+            <h2>Nieuwe Ticket Aanmaken</h2>
             <form method="POST" class="form-container">
-                <input type="hidden" name="bestelling_id" id="bestelling_id">
-                
+                <input type="hidden" id="bestelling_id" name="bestelling_id">
                 <div class="form-group">
-                    <label for="type">Type Service:</label>
-                    <select name="type" id="type" class="form-input" required>
+                    <label for="type">Type Ticket</label>
+                    <select class="form-input" id="type" name="type" required>
+                        <option value="">Selecteer type</option>
+                        <option value="montage">Installatie</option>
                         <option value="reparatie">Reparatie</option>
-                        <option value="montage">Montage</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="beschrijving">Beschrijving:</label>
-                    <textarea name="beschrijving" id="beschrijving" class="form-input" 
-                              rows="4" required></textarea>
+                    <label for="beschrijving">Beschrijving</label>
+                    <textarea class="form-input" id="beschrijving" name="beschrijving" required></textarea>
                 </div>
-
                 <div class="form-actions">
                     <button type="submit" name="create_ticket" class="submit-button">Ticket Aanmaken</button>
                 </div>
@@ -163,12 +157,12 @@ $result = $conn->query($sql);
     </div>
 
     <script>
-        // Modal functionality
-        const modal = document.getElementById('ticketModal');
-        const span = document.getElementsByClassName('close')[0];
+        // Modal functionaliteit
+        const modal = document.getElementById("ticketModal");
+        const span = document.getElementsByClassName("close")[0];
 
-        function openTicketForm(bestellingId) {
-            document.getElementById('bestelling_id').value = bestellingId;
+        function openTicketModal(bestellingId) {
+            document.getElementById("bestelling_id").value = bestellingId;
             modal.style.display = "block";
         }
 

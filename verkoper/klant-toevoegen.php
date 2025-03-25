@@ -105,9 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <div class="form-group">
                 <label for="bankrekening">Bankrekeningnummer (IBAN)</label>
-                <input type="text" id="bankrekening" name="bankrekening" class="form-input" 
-                       pattern="NL[0-9]{2}[A-Z]{4}[0-9]{10}"
-                       title="Voer een geldig IBAN nummer in (bijv. NL91ABNA0417164300)" required>
+                <input type="text" id="bankrekening" name="bankrekening" class="form-input" required>
             </div>
             
             <div class="form-group">
