@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Controleer of de gebruiker is ingelogd als monteur
+// Controleer of de gebruiker is ingelogd 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'monteur') {
     header("Location: ../admin/login.php");
     exit();
