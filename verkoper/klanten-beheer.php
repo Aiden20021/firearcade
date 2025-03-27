@@ -19,7 +19,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$message = '';
+$message = '';  // Variabele voor foutmeldingen of bevestigingen
+
+
 $edit_klant = null;
 
 // Verwerk het bijwerken van een klant

@@ -20,7 +20,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$message = '';
+$message = '';  // Variabele voor foutmeldingen of bevestigingen
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
