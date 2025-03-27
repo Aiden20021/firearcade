@@ -1,4 +1,13 @@
+
 <?php
+session_start();
+
+// Controleer of de gebruiker is ingelogd 
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'verkoper') {
+    header("Location: ../admin/login.php");
+    exit();
+}
+
 // Database connectie
 $servername = "localhost";
 $username = "root";
@@ -11,7 +20,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$message = '';
+$message = '';  // Variabele voor foutmeldingen of bevestigingen
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

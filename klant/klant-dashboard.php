@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Controleer of de gebruiker is ingelogd als klant
+// Controleer of de gebruiker is ingelogd 
 if (!isset($_SESSION['klant_id']) || $_SESSION['user_role'] !== 'klant') {
     header("Location: ../admin/login.php");
     exit();
