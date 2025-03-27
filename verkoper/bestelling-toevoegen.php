@@ -19,7 +19,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$message = '';
+$message = '';  // Variabele om eventuele fout- of succesmeldingen op te slaan
 
 // Haal alle klanten op voor de dropdown
 $klanten_query = "SELECT klant_id, naam, email FROM klanten ORDER BY naam";

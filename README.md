@@ -6,7 +6,7 @@ FireArcade is een beheersysteem voor een spelkastenbedrijf, waarmee verschillend
 ## Systeemvereisten
 - PHP 7.4 of hoger
 - MySQL
-- XAMPP/WAMP/LAMP stack
+- XAMPP/WAMP
 - Webbrowser (Chrome, Firefox, Safari, Edge)
 
 ## Installatie
@@ -71,7 +71,7 @@ firearcade/
 ### Klant
 - Persoonlijk dashboard
 - Bestelgeschiedenis bekijken
-- Reparatieverzoeken indienen
+- Reparatie/montage verzoeken indienen
 
 ## Inloggen
 Standaard inloggegevens voor test:
